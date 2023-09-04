@@ -1,11 +1,13 @@
 NAME = fractol
 CFALGS = -Wall Wextra Werror
-FILES = test.c
+FILES = test.c deal_mlx.c
 OBJECTS = $(FILES:.c=.o)
 LIBFT_DIR = ./libft
 LIBFT = ft
 MLX_DIR = ./mlx
 MLX = mlx
+INCLUDE_DIR = ./include
+INCLUDE = -I $(LIBFT_DIR)  -I $(MLX_DIR) -I $(INCLUDE_DIR)
 
 all:$(NAME)
 
@@ -15,7 +17,7 @@ $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) -framework OpenGL -framework AppKit $(OBJECTS) -o $(NAME)
 
 .c.o: $(OBJECTS)
-	$(CC) $(CFLAGS) -I $(LIBFT_DIR)  -I $(MLX_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	make -C $(LIBFT_DIR) clean
