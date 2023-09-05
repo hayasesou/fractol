@@ -7,6 +7,9 @@
 
 #define DestroyNotify			17
 #define StructureNotifyMask		(1L<<17)
+#define ButtonPress		4
+#define EnterWindowMask			(1L<<4)
+
 
 typedef struct t_data
 {
@@ -28,6 +31,6 @@ typedef struct t_complex
 
 int deal_key(int key, t_data *data);
 int deal_window_cross(t_data *data);
-int deal_mouse(int button, int x,int y, t_data *data);
+int deal_mouse_pointer(int button,int x,int y,t_data *data);
 
 #endif
