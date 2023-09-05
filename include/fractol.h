@@ -21,6 +21,8 @@ typedef struct t_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	double	pixel;
+	double	size;
 } t_data;
 
 typedef struct t_complex
