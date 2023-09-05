@@ -12,26 +12,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	if (data->divergence == 50 )
-		*(unsigned int*)dst = color;
-	else if (data->divergence > 40 )
-		*(unsigned int*)dst = color / 40;
-	else if (data->divergence > 30 )
-		*(unsigned int*)dst = color / 30;
-	else if (data->divergence > 20 )
-		*(unsigned int*)dst = color / 20;
-	else if (data->divergence > 10 )
-		*(unsigned int*)dst = color / 10;
-	else if (data->divergence > 5 )
-		*(unsigned int*)dst = color / 5;
-	else if (data->divergence > 2 )
-		*(unsigned int*)dst = color / 2;
-	else if (data->divergence > 1 )
-		*(unsigned int*)dst = color / 74774;
-	else if (data->divergence > 0 )
-		*(unsigned int*)dst = color / 10000;
-	// if( data->divergence != 0)
-	// *(unsigned int*)dst = color / data->divergence;
+	if( data->divergence != 0)
+	*(unsigned int*)dst = color / data->divergence;
+
 }
 
 int caluculate(t_complex complex,double x, double y)
@@ -40,7 +23,7 @@ int caluculate(t_complex complex,double x, double y)
 	int	k;
 
 	k = 0 ;
-	while (k < 50)
+	while (k < 100)
 	{
 		z.real = pow(x,2.0) - pow(y,2.0) + complex.real;
 		z.imag = 2 * x * y + complex.imag;
@@ -60,8 +43,6 @@ int test(t_data *data)
 	int j;
 	double x, y;
 	
-	// complex.real = -1;
-	// complex.imag = 0;
 	complex.real = data->x_pos;
 	complex.imag = data->y_pos;
 	i = 0;
@@ -78,7 +59,6 @@ int test(t_data *data)
 			}
 		i++;
 	}
-	// printf("hello\n");
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 	return (0);
 }
@@ -86,8 +66,7 @@ int test(t_data *data)
 int mlx_win_init(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, 1000, 1000, "fractol");
-
+	data->mlx_win = mlx_new_window(data->mlx, 2000, 1000, "fractol");
 	data->img = mlx_new_image(data->mlx, 1000, 1000);
 	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),&(data->line_length), &(data->endian));
 	return (0);	
@@ -98,16 +77,12 @@ int	main ()
 	t_data	data;
 	data.size = 4;
 	data.pixel = 1000;
-	data.x_pos = -1;
-	data.y_pos = 0;
 
 	mlx_win_init(&data);
-
 	mlx_key_hook (data.mlx_win, deal_key, &data);
-
-	test(&data);
 	mlx_hook (data.mlx_win, ButtonPress, EnterWindowMask, deal_mouse_pointer, &data);
 	mlx_hook (data.mlx_win, DestroyNotify, StructureNotifyMask, deal_window_cross, &data);
 	mlx_loop(data.mlx);
+
 	return (0);
 }
