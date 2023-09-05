@@ -23,7 +23,17 @@ typedef struct t_data
 	int		endian;
 	double	pixel;
 	double	size;
+
+	double x_pos;
+	double y_pos;
 } t_data;
+
+// typedef struct t_database
+// {
+// 	t_data *data;
+// 	t_data enlarge;
+// 	t_data shrink;
+// }	t_database;
 
 typedef struct t_complex
 {
@@ -33,6 +43,7 @@ typedef struct t_complex
 
 int deal_key(int key, t_data *data);
 int deal_window_cross(t_data *data);
-int deal_mouse_pointer(int button,int x,int y,t_data *data);
+int deal_mouse_pointer(int button, int  x, int y, t_data *data);
+int test(t_data *data);
 
 #endif

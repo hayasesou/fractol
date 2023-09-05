@@ -1,6 +1,6 @@
 NAME = fractol
-CFALGS = -Wall Wextra Werror
-FILES = test.c deal_mlx.c
+CFLAGS = -Wall -Wextra -Werror -O2
+FILES = deal_mlx.c julia.c #test.c 
 OBJECTS = $(FILES:.c=.o)
 LIBFT_DIR = ./libft
 LIBFT = ft
