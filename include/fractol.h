@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:41:52 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/06 21:47:22 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:46:58 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@
 # define StructureNotifyMask (1L<<17)
 # define ButtonPress	4
 # define EnterWindowMask			(1L<<4)
-
+# define MotionNotify	6
+# define PointerMotionMask	(1L<<6)
+# define Mandelbrot 1
+# define Julia		2
 
 typedef struct t_data
 {
@@ -45,6 +48,7 @@ typedef struct t_data
 
 	int		color_change;
 
+	int		fractol_type;
 }	t_data;
 
 typedef struct t_complex
@@ -55,10 +59,17 @@ typedef struct t_complex
 
 int		deal_key(int key, t_data *data);
 int		deal_window_cross(t_data *data);
-int		deal_mouse_pointer(int button, int x, int y, t_data *data);
+int		mande_deal_mouse_pointer(int button, int x, int y, t_data *data);
+int		julia_deal_mouse_pointer(int button, int x, int y, t_data *data);
 int		make_julia(t_data *data);
 int		mandel_caluculate(t_complex complex);
 int		make_mandel(t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		deal_mouse_move(int x, int y, t_data *data);
+int		mlx_win_init(t_data *data);
+void	zoom_in_out(t_data *data, int button);
+
+int		mandelbrot(void);
+int		julia(void);
 
 #endif

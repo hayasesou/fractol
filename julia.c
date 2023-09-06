@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:32:25 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/06 21:57:48 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:47:15 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,18 @@ int	make_julia(t_data *data)
 	return (0);
 }
 
-int	mlx_win_init(t_data *data)
-{
-	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, 2 * data->pixel,
-			data->pixel, "fractol");
-	data->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
-	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),
-			&(data->line_length), &(data->endian));
-	return (0);
-}
+// int	mlx_win_init(t_data *data)
+// {
+// 	data->mlx = mlx_init();
+// 	data->mlx_win = mlx_new_window(data->mlx, 2 * data->pixel,
+// 			data->pixel, "fractol");
+// 	data->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
+// 	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),
+// 			&(data->line_length), &(data->endian));
+// 	return (0);
+// }
 
-int	main(void)
+int	julia(void)
 {
 	t_data	data;
 
@@ -98,14 +98,17 @@ int	main(void)
 	data.pixel = 1000;
 	data.size_tmp = data.size;
 	data.color_change = 1;
+	data.fractol_type = Julia;
 
 	mlx_win_init(&data);
 	mlx_key_hook (data.mlx_win, deal_key, &data);
-	mlx_hook (data.mlx_win, ButtonPress, EnterWindowMask,
-		deal_mouse_pointer, &data);
 	make_mandel(&data);
 	mlx_hook (data.mlx_win, DestroyNotify, StructureNotifyMask,
 		deal_window_cross, &data);
+	mlx_hook (data.mlx_win, MotionNotify, PointerMotionMask,
+		deal_mouse_move, &data);
+	mlx_hook (data.mlx_win, ButtonPress, EnterWindowMask,
+		julia_deal_mouse_pointer, &data);
 	mlx_loop(data.mlx);
 
 	return (0);

@@ -1,70 +1,69 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deal_mlx.c                                         :+:      :+:    :+:   */
+/*   mandel_deal_mlx.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:13:07 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/06 01:32:13 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 03:22:22 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 int	deal_key(int key, t_data *data)
 {
 	(void )data;
 	if (key == 53)
 	{
-	printf("OK\n");
-	exit (0);
+		ft_printf("ESC key is pressed\n");
+		exit (0);
 	}
-	else
-	printf("NO\n");
 	return (0);
 }
 
 int	deal_window_cross(t_data *data)
 {
 	(void )data;
-	printf("cross\n");
+	ft_printf("window cross is pressed\n");
 	exit(0);
 	return (0);
 }
 
-int deal_mouse_pointer(int button, int  x, int y, t_data *data)
+void	zoom_in_out(t_data *data, int button)
 {
-	if(button  == 1)
-	{
-		mlx_destroy_image(data->mlx,data->img);
-		data->img = mlx_new_image(data->mlx, 1000, 1000);
-		data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),&(data->line_length), &(data->endian));
-		
-		mlx_mouse_get_pos(data->mlx_win, &x, &y);
-		printf("x = [%f], y = [%f]\n", (double)x, (double)y);
-		data->x_pos = (double)x / data->pixel;
-		data->y_pos = (double)y / data->pixel;
-		printf("x = [%f], y = [%f]\n",data->x_pos, data->y_pos);
-		if( data->x_pos <=2 && data->y_pos <= 2 )
-			test(data);
-	}
-	if(button == 5)
-	{
-		mlx_destroy_image(data->mlx,data->img);
+	if (button == 5)
 		data->size *= 0.9;
-		data->img = mlx_new_image(data->mlx, 1000, 1000);
-		data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),&(data->line_length), &(data->endian));
-		test(data);
-	}
-	else if(button == 4)
-	{
-		mlx_destroy_image(data->mlx,data->img);
-		data->size *= 1.111111;
-		data->img = mlx_new_image(data->mlx, 1000, 1000);
-		data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),&(data->line_length), &(data->endian));
-		test(data);
-	}
+	else if (button == 4)
+		data->size *= 1.1111;
+	mlx_destroy_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, 1000, 1000);
+	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),
+			&(data->line_length), &(data->endian));
+	if (data->fractol_type == Mandelbrot)
+		make_mandel(data);
+	else if (data->fractol_type == Julia)
+		make_julia(data);
+}
+
+int	mande_deal_mouse_pointer(int button, int x, int y, t_data *data)
+{
+	(void)x;
+	(void)y;
+	if (button == 5 || button == 4)
+		zoom_in_out(data, button);
 	return (0);
 }
+
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	if (data->divergence == 100 || x == data->pixel -1)
+// 		*(unsigned int *)dst = 0X00FFFFFF;
+// 	else if (data->divergence == 0)
+// 		*(unsigned int *)dst = 0X00000000;
+// 	else
+// 		*(unsigned int *)dst = color;
+// }

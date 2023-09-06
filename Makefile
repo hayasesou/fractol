@@ -1,6 +1,7 @@
 NAME = fractol
-CFLAGS = -Wall -Wextra -Werror -O2
-FILES = julia_deal_mlx.c julia.c juli_mande.c #mandel_deal_mlx.c test.c  
+CFLAGS = -Wall -Wextra -Werror -O2 -fsanitize=address -g
+FILES = main.c mandel_deal_mlx.c mandel.c\
+		julia.c julia_deal_mlx.c juli_mande.c
 OBJECTS = $(FILES:.c=.o)
 LIBFT_DIR = ./libft
 LIBFT = ft
