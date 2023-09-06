@@ -11,7 +11,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	if( data->divergence == 100)
+	if( data->divergence == 100 || x == data->pixel -1)
 	*(unsigned int*)dst = 0X00FFFFFF;
 	else if(data->divergence == 0)
 	*(unsigned int*)dst = 0X00000000;
@@ -56,7 +56,7 @@ int make_julia(t_data *data)
 			{
 				y =-(j *(data->size /data->pixel) - (data->size / 2));
 				data->divergence = julia_caluculate(complex, x, y);
-				my_mlx_pixel_put (data, i, j, pow(data->divergence,3));
+				my_mlx_pixel_put (data, i, j, pow(data->divergence,4));
 				j++;
 			}
 		i++;

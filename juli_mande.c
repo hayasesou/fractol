@@ -38,7 +38,10 @@ int make_mandel(t_data *data)
 			{
 				complex.imag = j *(data->size /data->pixel) - (data->size / 2);
 				data->divergence = mandel_caluculate(complex);
-				my_mlx_pixel_put (data, i, j,pow(data->divergence,3)+ 100);
+				if( i == data->pixel / 2 || j == data->pixel / 2)
+					my_mlx_pixel_put (data, i, j,0X00EE82EE);
+				else
+					my_mlx_pixel_put (data, i, j,pow(data->divergence,4));
 				j++;
 			}
 		i++;

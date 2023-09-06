@@ -33,7 +33,7 @@ int deal_mouse_pointer(int button, int  x, int y, t_data *data)
 		mlx_mouse_get_pos(data->mlx_win, &x, &y);
 		printf("x = [%f], y = [%f]\n", (double)x, (double)y);
 		data->x_pos = (double)x *(data->size / data->pixel) - (data->size / 2);
-		data->y_pos = (double)y *(data->size / data->pixel) - (data->size / 2);
+		data->y_pos = -((double)y *(data->size / data->pixel) - (data->size / 2));
 		printf("x = [%f], y = [%f]\n",data->x_pos, data->y_pos);
 		if( data->x_pos <=2 && data->y_pos <= 2 )
 			make_julia(data);
