@@ -4,6 +4,9 @@
 # include <math.h>
 # include <mlx.h>
 # include <stdlib.h>
+# include "libft.h"
+# include "ft_printf.h"
+
 
 #define DestroyNotify			17
 #define StructureNotifyMask		(1L<<17)
@@ -26,14 +29,8 @@ typedef struct t_data
 
 	double x_pos;
 	double y_pos;
-} t_data;
 
-// typedef struct t_database
-// {
-// 	t_data *data;
-// 	t_data enlarge;
-// 	t_data shrink;
-// }	t_database;
+} t_data;
 
 typedef struct t_complex
 {
@@ -44,6 +41,9 @@ typedef struct t_complex
 int deal_key(int key, t_data *data);
 int deal_window_cross(t_data *data);
 int deal_mouse_pointer(int button, int  x, int y, t_data *data);
-int test(t_data *data);
+int make_julia(t_data *data);
+int mandel_caluculate(t_complex complex);
+int make_mandel(t_data *data);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

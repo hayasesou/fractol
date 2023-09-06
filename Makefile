@@ -1,20 +1,24 @@
 NAME = fractol
 CFLAGS = -Wall -Wextra -Werror -O2
-FILES = deal_mlx.c test.c  
+FILES = julia_deal_mlx.c julia.c juli_mande.c #mandel_deal_mlx.c test.c  
 OBJECTS = $(FILES:.c=.o)
 LIBFT_DIR = ./libft
 LIBFT = ft
 MLX_DIR = ./mlx
 MLX = mlx
 INCLUDE_DIR = ./include
-INCLUDE = -I $(LIBFT_DIR)  -I $(MLX_DIR) -I $(INCLUDE_DIR)
+PRINTF_DIR = ./printf
+PRINTF = ftprintf
+INCLUDE = -I $(LIBFT_DIR)  -I $(MLX_DIR) -I $(INCLUDE_DIR) -I$(PRINTF_DIR)
 
 all:$(NAME)
 
 $(NAME): $(OBJECTS)
-	make -C $(LIBFT_DIR)
 	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) -framework OpenGL -framework AppKit $(OBJECTS) -o $(NAME)
+	make -C $(LIBFT_DIR)
+	make -C $(PRINTF_DIR)
+	$(CC) $(CFLAGS) $(INCLUDE) -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) \
+	-L$(PRINTF_DIR) -l$(PRINTF) -framework OpenGL -framework AppKit $(OBJECTS) -o $(NAME)
 
 .c.o: $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
@@ -22,10 +26,12 @@ $(NAME): $(OBJECTS)
 clean:
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
+	make -C $(PRINTF_DIR) clean
 	$(RM) $(OBJECTS)
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
+	make -C $(PRINTF_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all

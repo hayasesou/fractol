@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "fractol.h"
-
+#include "fractol.h"																									
 //we want to access to pixel but we can only access to address by 1byte(8 bits) 
 //so you have to caluculate the bytes of per_pixel by  bits_per_pixel / 8
 // □ : pixel ▫︎ : address
@@ -12,12 +11,15 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	if( data->divergence != 0)
-	*(unsigned int*)dst = color / data->divergence;
-
+	if( data->divergence == 100)
+	*(unsigned int*)dst = 0X00FFFFFF;
+	else if(data->divergence == 0)
+	*(unsigned int*)dst = 0X00000000;
+	else
+	*(unsigned int*)dst = color;
 }
 
-int caluculate(t_complex complex,double x, double y)
+int julia_caluculate(t_complex complex,double x, double y)
 {
 	t_complex z;
 	int	k;
@@ -36,7 +38,7 @@ int caluculate(t_complex complex,double x, double y)
 	return (k);
 }
 
-int test(t_data *data)
+int make_julia(t_data *data)
 {
 	t_complex complex;
 	int i;
@@ -52,22 +54,22 @@ int test(t_data *data)
 		x = i *(data->size / data->pixel) - (data->size / 2);
 		while (j < data->pixel)
 			{
-				y = j *(data->size /data->pixel) - (data->size / 2);
-				data->divergence =caluculate(complex, x, y);
-				my_mlx_pixel_put (data, i, j, 0x00FFFFFF);
+				y =-(j *(data->size /data->pixel) - (data->size / 2));
+				data->divergence = julia_caluculate(complex, x, y);
+				my_mlx_pixel_put (data, i, j, pow(data->divergence,3));
 				j++;
 			}
 		i++;
 	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 1000, 0);
 	return (0);
 }
 
 int mlx_win_init(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, 2000, 1000, "fractol");
-	data->img = mlx_new_image(data->mlx, 1000, 1000);
+	data->mlx_win = mlx_new_window(data->mlx, 2*data->pixel, data->pixel, "fractol");
+	data->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
 	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),&(data->line_length), &(data->endian));
 	return (0);	
 }
@@ -81,6 +83,7 @@ int	main ()
 	mlx_win_init(&data);
 	mlx_key_hook (data.mlx_win, deal_key, &data);
 	mlx_hook (data.mlx_win, ButtonPress, EnterWindowMask, deal_mouse_pointer, &data);
+	make_mandel(&data);
 	mlx_hook (data.mlx_win, DestroyNotify, StructureNotifyMask, deal_window_cross, &data);
 	mlx_loop(data.mlx);
 
