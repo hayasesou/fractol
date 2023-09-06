@@ -4,3 +4,4 @@ ft_printf.h.gch
 .vscode
 .DS_Store
 a.out.dSYMpft/
+libftprintf.a

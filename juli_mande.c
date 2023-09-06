@@ -47,5 +47,7 @@ int make_mandel(t_data *data)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	mlx_string_put(data->mlx, data->mlx_win, data->pixel - 30, data->pixel / 2 + 10, 0X00EE82EE, "real");
+	mlx_string_put(data->mlx, data->mlx_win, data->pixel / 2 - 15, 10, 0X00EE82EE, "imag");
 	return (0);
 }
