@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:34:44 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/06 21:36:14 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:59:35 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	deal_key(int key, t_data *data)
 {
 	(void )data;
 	if (key == 53)
+	{
+		ft_printf("ESC key is pressed\n");
 		exit (0);
+	}
 	return (0);
 }
 
