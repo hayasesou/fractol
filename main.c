@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 01:48:51 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 02:44:48 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 03:28:57 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	main(int ac, char **av)
 		julia();
 	else
 		ft_printf("error : invalid fractol.\n");
-	return(0);
+	return (0);
 }
