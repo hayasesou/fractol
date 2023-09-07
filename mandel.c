@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 01:03:55 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 09:30:21 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:33:48 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	make_mandel(t_data *data)
 	return (0);
 }
 
-
 //you want to access to pixel but you can only access to address by 1byte(8bits)
 //so you have to caluculate the bytes of per_pixel by  bits_per_pixel / 8
 // □ : pixel ▫︎ : address
@@ -100,7 +99,6 @@ int	mandelbrot(void)
 	data.size_tmp = data.size;
 	data.color_change = 1;
 	data.fractol_type = MANDELBROT;
-
 	mlx_win_init(&data);
 	mlx_key_hook (data.mlx_win, deal_key, &data);
 	make_mandel(&data);
@@ -109,6 +107,5 @@ int	mandelbrot(void)
 	mlx_hook (data.mlx_win, BUTTONPRESS, (1L << 4),
 		mande_deal_mouse_pointer, &data);
 	mlx_loop(data.mlx);
-
 	return (0);
 }
