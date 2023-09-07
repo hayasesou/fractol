@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:41:52 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 12:16:48 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:45:09 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define PINK 15631086
 
 # define MAC_ESC_KEY 53
+# define MAC_SPACE_KEY 49
 
 typedef struct t_data
 {

@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 01:03:55 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 12:31:45 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:52:57 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ int	make_mandel(t_data *data)
 		{
 			complex.imag = j *(data->size / data->pixel) - (data->size / 2);
 			data->divergence = mandel_caluculate(complex);
-			if (data->divergence == -1)
-				my_mlx_pixel_put (data, i, j, 15631086);
-			else
-				my_mlx_pixel_put (data, i, j, pow(data->divergence, 4));
-				j++;
+			my_mlx_pixel_put (data, i, j, pow(data->divergence, 3)
+				* data->color_change);
+			j++;
 		}
 		i++;
 	}
