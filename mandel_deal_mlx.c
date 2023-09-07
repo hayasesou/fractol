@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:13:07 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 03:22:22 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:23:24 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	zoom_in_out(t_data *data, int button)
 	data->img = mlx_new_image(data->mlx, 1000, 1000);
 	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),
 			&(data->line_length), &(data->endian));
-	if (data->fractol_type == Mandelbrot)
+	if (data->fractol_type == MANDELBROT)
 		make_mandel(data);
-	else if (data->fractol_type == Julia)
+	else if (data->fractol_type == JULIA)
 		make_julia(data);
 }
 

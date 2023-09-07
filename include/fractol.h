@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:41:52 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 02:46:58 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:30:02 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@
 # include "libft.h"
 # include "ft_printf.h"
 
+# define DESTROYNOTIFY 17
+# define BUTTONPRESS	4
+# define MOTIONNOTIFY	6
 
-# define DestroyNotify 17
-# define StructureNotifyMask (1L<<17)
-# define ButtonPress	4
-# define EnterWindowMask			(1L<<4)
-# define MotionNotify	6
-# define PointerMotionMask	(1L<<6)
-# define Mandelbrot 1
-# define Julia		2
+# define MANDELBROT 1
+# define JULIA 2
 
 typedef struct t_data
 {

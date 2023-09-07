@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 01:03:55 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 02:48:55 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:30:21 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ int	mandelbrot(void)
 	data.pixel = 1000;
 	data.size_tmp = data.size;
 	data.color_change = 1;
-	data.fractol_type = Mandelbrot;
+	data.fractol_type = MANDELBROT;
 
 	mlx_win_init(&data);
 	mlx_key_hook (data.mlx_win, deal_key, &data);
 	make_mandel(&data);
-	mlx_hook (data.mlx_win, DestroyNotify, StructureNotifyMask,
+	mlx_hook (data.mlx_win, DESTROYNOTIFY, (1L << 17),
 		deal_window_cross, &data);
-	mlx_hook (data.mlx_win, ButtonPress, EnterWindowMask,
+	mlx_hook (data.mlx_win, BUTTONPRESS, (1L << 4),
 		mande_deal_mouse_pointer, &data);
 	mlx_loop(data.mlx);
 
