@@ -6,19 +6,11 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 01:03:55 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 09:33:48 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 10:09:34 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void	auxiliary_line(t_data *data)
-{
-	mlx_string_put(data->mlx, data->mlx_win, data->pixel - 30,
-		data->pixel / 2 +1, 15631086, "real");
-	mlx_string_put(data->mlx, data->mlx_win, data->pixel / 2 - 15,
-		10, 15631086, "imag");
-}
 
 int	mandel_caluculate(t_complex complex)
 {

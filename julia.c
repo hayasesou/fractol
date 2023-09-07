@@ -6,24 +6,11 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:32:25 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 09:34:09 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 10:09:03 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	if (data->divergence == 100 || x == data->pixel -1)
-		*(unsigned int *)dst = 0X00FFFFFF;
-	else if (data->divergence == 0)
-		*(unsigned int *)dst = 0X00000000;
-	else
-		*(unsigned int *)dst = color;
-}
 
 int	julia_caluculate(t_complex complex, double x, double y)
 {
@@ -78,17 +65,6 @@ int	make_julia(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 1000, 0);
 	return (0);
 }
-
-// int	mlx_win_init(t_data *data)
-// {
-// 	data->mlx = mlx_init();
-// 	data->mlx_win = mlx_new_window(data->mlx, 2 * data->pixel,
-// 			data->pixel, "fractol");
-// 	data->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
-// 	data->addr = mlx_get_data_addr (data->img, &(data->bits_per_pixel),
-// 			&(data->line_length), &(data->endian));
-// 	return (0);
-// }
 
 int	julia(void)
 {
