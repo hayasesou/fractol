@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:32:25 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 12:10:45 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:31:48 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	julia(void)
 
 	set_julia_param(&data);
 	mlx_win_init(&data);
-	mlx_key_hook (data.mlx_win, deal_key, &data);
 	make_mandel(&data);
+	mlx_key_hook (data.mlx_win, deal_key, &data);
 	mlx_hook (data.mlx_win, DESTROYNOTIFY, (1L << 17),
 		deal_window_cross, &data);
 	mlx_hook (data.mlx_win, MOTIONNOTIFY, (1L << 6),
