@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 01:03:55 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 10:09:34 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:29:27 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	mandel_caluculate(t_complex complex)
 	real = 0;
 	imag = 0;
 	k = 0 ;
-	if (complex.real == 0 || complex.imag == 0)
-		return (-1);
 	while (k < 100)
 	{
 		z.real = pow(real, 2.0) - pow(imag, 2.0) + complex.real;
@@ -61,7 +59,6 @@ int	make_mandel(t_data *data)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
-	auxiliary_line(data);
 	return (0);
 }
 
@@ -82,15 +79,20 @@ int	mlx_win_init(t_data *data)
 	return (0);
 }
 
+static void	set_mandel_param(t_data *data)
+{
+	data->size = 4;
+	data->pixel = 1000;
+	data->size_tmp = data->size;
+	data->color_change = 1;
+	data->fractol_type = MANDELBROT;
+}
+
 int	mandelbrot(void)
 {
 	t_data	data;
 
-	data.size = 4;
-	data.pixel = 1000;
-	data.size_tmp = data.size;
-	data.color_change = 1;
-	data.fractol_type = MANDELBROT;
+	set_mandel_param(&data);
 	mlx_win_init(&data);
 	mlx_key_hook (data.mlx_win, deal_key, &data);
 	make_mandel(&data);

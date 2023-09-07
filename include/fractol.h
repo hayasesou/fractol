@@ -6,7 +6,7 @@
 /*   By: hfukushi <hfukushi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 21:41:52 by hfukushi          #+#    #+#             */
-/*   Updated: 2023/09/07 10:13:33 by hfukushi         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:16:48 by hfukushi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,18 @@
 # define BUTTONPRESS	4
 # define MOTIONNOTIFY	6
 
+# define MOUSE_LEFT_CLICK 1
+# define MOUSE_WHEEL_BACKWARD 4
+# define MOUSE_WHEEL_FORWARD 5
+
 # define MANDELBROT 1
 # define JULIA 2
+
+# define BLACK 0X00000000
+# define WHITE 0X00FFFFFF
+# define PINK 15631086
+
+# define MAC_ESC_KEY 53
 
 typedef struct t_data
 {
@@ -56,6 +66,7 @@ typedef struct t_complex
 
 void	auxiliary_line(t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	updata_image_data(t_data *data);
 
 int		deal_mouse_move(int x, int y, t_data *data);
 int		deal_key(int key, t_data *data);
