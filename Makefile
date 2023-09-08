@@ -14,6 +14,8 @@ INCLUDE_DIR = ./include
 PRINTF_DIR = ./printf
 PRINTF = ftprintf
 INCLUDE = -I $(LIBFT_DIR)  -I $(MLX_DIR) -I $(INCLUDE_DIR) -I$(PRINTF_DIR)
+LDFALGS = -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) \
+	-L$(PRINTF_DIR) -l$(PRINTF)
 
 ifdef is_bonus
 	OBJECTS = $(BFILES:.c=.o)
@@ -27,8 +29,7 @@ $(NAME): $(OBJECTS)
 	make -C $(MLX_DIR)
 	make -C $(LIBFT_DIR)
 	make -C $(PRINTF_DIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) \
-	-L$(PRINTF_DIR) -l$(PRINTF) -framework OpenGL -framework AppKit $(OBJECTS) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDE) $(LDFALGS) -framework OpenGL -framework AppKit $(OBJECTS) -o $@
 
 bonus:
 	make is_bonus=1
