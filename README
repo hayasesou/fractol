@@ -1,5 +1,5 @@
 # Fractol
-
+![demo](https://github.com/hayasesou/fractol/issues/1)
 Fractol is an interactive program that visualizes the Mandelbrot set and Julia set. It is written in C and uses the MinilibX library for graphical display.
 
 ## Features
