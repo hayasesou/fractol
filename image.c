@@ -35,6 +35,7 @@ void	updata_image_data(t_data *data)
 
 void	zoom_in_out(t_data *data, int button)
 {
+	printf("zoom_in_out\n");
 	if (button == MOUSE_WHEEL_FORWARD)
 		data->size *= 0.9;
 	else if (button == MOUSE_WHEEL_BACKWARD)

@@ -14,11 +14,13 @@
 
 int	julia_deal_mouse_pointer(int button, int x, int y, t_data *data)
 {
+	printf("button %d\n", button);
 	if (button == MOUSE_LEFT_CLICK)
 	{
 		data->size = data->size_tmp;
 		updata_image_data(data);
-		mlx_mouse_get_pos(data->mlx_win, &x, &y);
+		// mlx_mouse_get_pos(data->mlx_win, &x, &y);
+		mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);	
 		data->x_pos = (double)x *(data->size / data->pixel) - (data->size / 2);
 		data->y_pos = -((double)y *(data->size / data->pixel)
 				-(data->size / 2));
@@ -34,7 +36,8 @@ int	deal_mouse_move(int x, int y, t_data *data)
 {
 	data->size = data->size_tmp;
 	updata_image_data(data);
-	mlx_mouse_get_pos(data->mlx_win, &x, &y);
+	// mlx_mouse_get_pos(data->mlx_win, &x, &y);
+	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
 	data->x_pos = (double)x *(data->size / data->pixel) - (data->size / 2);
 	data->y_pos = -((double)y *(data->size / data->pixel)
 			-(data->size / 2));

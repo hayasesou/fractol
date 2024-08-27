@@ -1,47 +1,58 @@
 NAME = fractol
-CFLAGS = -Wall -Wextra -Werror -O2
-MFILES = main.c image.c deal.c\
-		mandel_deal_mlx.c mandel.c\
-		julia.c julia_deal_mlx.c
-BFILES = main.c image.c deal_bonus.c\
-		mandel_deal_mlx.c mandel.c\
-		julia.c julia_deal_mlx.c
+CFLAGS = -Wall -Wextra -Werror -O2 -fsanitize=address
+MFILES = main.c image.c deal.c mandel_deal_mlx.c mandel.c julia.c julia_deal_mlx.c
+BFILES = main.c image.c deal_bonus.c mandel_deal_mlx.c mandel.c julia.c julia_deal_mlx.c
 LIBFT_DIR = ./libft
 LIBFT = ft
-MLX_DIR = ./mlx
+MLX_DIR = ./minilibx-linux
 MLX = mlx
 INCLUDE_DIR = ./include
 PRINTF_DIR = ./printf
 PRINTF = ftprintf
-INCLUDE = -I $(LIBFT_DIR)  -I $(MLX_DIR) -I $(INCLUDE_DIR) -I$(PRINTF_DIR)
-LDFALGS = -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) \
-	-L$(PRINTF_DIR) -l$(PRINTF)
+INCLUDE = -I $(LIBFT_DIR) -I $(MLX_DIR) -I $(INCLUDE_DIR) -I$(PRINTF_DIR)
+LDFLAGS = -L$(LIBFT_DIR) -l$(LIBFT) -L$(MLX_DIR) -l$(MLX) \
+	-L$(PRINTF_DIR) -l$(PRINTF) -lX11 -lXext -lm
+
+TAR = minilibx-linux.tgz
 
 ifdef is_bonus
-	OBJECTS = $(BFILES:.c=.o)
+	SRCS = $(BFILES)
 else
-	OBJECTS = $(MFILES:.c=.o)
+	SRCS = $(MFILES)
 endif
 
-all:$(NAME)
+OBJECTS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJECTS)
-	make -C $(MLX_DIR)
+all: extract_mlx $(NAME)
+
+extract_mlx:
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		tar -xvf $(TAR); \
+	fi
+
+$(NAME): $(OBJECTS) $(LIBFT_DIR)/lib$(LIBFT).a $(MLX_DIR)/lib$(MLX).a $(PRINTF_DIR)/lib$(PRINTF).a
+	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
+
+$(LIBFT_DIR)/lib$(LIBFT).a:
 	make -C $(LIBFT_DIR)
+
+$(MLX_DIR)/lib$(MLX).a: extract_mlx
+	make -C $(MLX_DIR)
+
+$(PRINTF_DIR)/lib$(PRINTF).a:
 	make -C $(PRINTF_DIR)
-	$(CC) $(CFLAGS) $(INCLUDE) $(LDFALGS) -framework OpenGL -framework AppKit $(OBJECTS) -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 bonus:
-	make is_bonus=1
-
-.c.o: $(OBJECTS)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(MAKE) is_bonus=1
 
 clean:
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 	make -C $(PRINTF_DIR) clean
-	$(RM) $(BFILES:.c=.o) $(MFILES:.c=.o)
+	$(RM) $(OBJECTS)
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
@@ -49,3 +60,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all bonus clean fclean re extract_mlx

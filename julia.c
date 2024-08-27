@@ -89,6 +89,8 @@ int	julia(void)
 		deal_mouse_move, &data);
 	mlx_hook (data.mlx_win, BUTTONPRESS, (1L << 4),
 		julia_deal_mouse_pointer, &data);
+	printf("Window created: %p\n", data.mlx_win);
 	mlx_loop(data.mlx);
 	return (0);
 }
+

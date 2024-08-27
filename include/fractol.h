@@ -16,6 +16,8 @@
 # include <math.h>
 # include <mlx.h>
 # include <stdlib.h>
+#include <X11/X.h>
+#include <X11/keysym.h>
 # include "libft.h"
 # include "ft_printf.h"
 

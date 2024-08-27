@@ -2,3 +2,5 @@
 a.out
 fractol
 test.c
+.env
+./minilibx-linux
